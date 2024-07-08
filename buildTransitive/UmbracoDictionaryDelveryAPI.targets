@@ -1,0 +1,21 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <UmbracoDictionaryDelveryAPIContentFilesPath>$(MSBuildThisFileDirectory)..\App_Plugins\UmbracoDictionaryDelveryAPI\**\*.*</UmbracoDictionaryDelveryAPIContentFilesPath>
+  </PropertyGroup>
+
+  <Target Name="CopyUmbracoDictionaryDelveryAPIAssets" BeforeTargets="BeforeBuild">
+    <ItemGroup>
+      <UmbracoDictionaryDelveryAPIContentFiles Include="$(UmbracoDictionaryDelveryAPIContentFilesPath)" />
+    </ItemGroup>
+    <Message Text="Copying UmbracoDictionaryDelveryAPI files: $(UmbracoDictionaryDelveryAPIContentFilesPath) - #@(UmbracoDictionaryDelveryAPIContentFiles->Count()) files" Importance="high" />
+    <Copy SourceFiles="@(UmbracoDictionaryDelveryAPIContentFiles)" DestinationFiles="@(UmbracoDictionaryDelveryAPIContentFiles->'$(MSBuildProjectDirectory)\App_Plugins\UmbracoDictionaryDelveryAPI\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="ClearUmbracoDictionaryDelveryAPIAssets" BeforeTargets="Clean">
+    <ItemGroup>
+      <UmbracoDictionaryDelveryAPIDir Include="$(MSBuildProjectDirectory)\App_Plugins\UmbracoDictionaryDelveryAPI\" />
+    </ItemGroup>
+    <Message Text="Clear old UmbracoDictionaryDelveryAPI data" Importance="high" />
+    <RemoveDir Directories="@(UmbracoDictionaryDelveryAPIDir)" />
+  </Target>
+</Project>

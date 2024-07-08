@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Version>1.0.1</Version>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ContentTargetFolders>.</ContentTargetFolders>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>UmbracoDictionaryDelveryAPI</PackageId>
+    <Product>UmbracoDictionaryDelveryAPI</Product>
+    <Title>UmbracoDictionaryDelveryAPI</Title>
+    <Description>UmbracoDictionaryDeliveryAP is a package for Umbraco CMS that provides way to fetch dictionary items directly from the Content Delivery Api. </Description>
+    <PackageTags>umbraco plugin package</PackageTags>
+    <Authors>Kim Thomsen</Authors>
+    <Company>Heyday</Company>
+    <Copyright>MIT</Copyright>
+    <PackageProjectUrl>https://github.com/Kimtho/UmbracoDictionaryDeliveryAPI</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Kimtho/UmbracoDictionaryDeliveryAPI</RepositoryUrl>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Umbraco.Cms.Api.Delivery" Version="14.0.0" />
+    <PackageReference Include="Umbraco.Cms.Core" Version="14.0.0" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="14.0.0" />
+    <PackageReference Include="Umbraco.Cms.Web.Common" Version="14.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="App_Plugins\UmbracoDictionaryDelveryAPI\**" ExcludeFromSingleFile="true" CopyToPublishDirectory="Always" />
+    <None Include="buildTransitive\**" Pack="true" PackagePath="buildTransitive" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UmbracoDictionaryDeliveryAPI\" />
+  </ItemGroup>
+</Project>
