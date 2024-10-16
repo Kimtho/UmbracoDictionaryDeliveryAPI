@@ -72,7 +72,7 @@ public class DictionaryController(ILocalizationService localizationService, IReq
     {
         Func<IDictionaryTranslation, bool> predict = culture == null
             ? x => true
-            : x => x.LanguageIsoCode == culture;
+            : x => x.LanguageIsoCode.Equals(culture, StringComparison.OrdinalIgnoreCase);
         var translation = dictionaryItem.Translations.FirstOrDefault(predict);
         string? value = null;
         if (translation != null)
