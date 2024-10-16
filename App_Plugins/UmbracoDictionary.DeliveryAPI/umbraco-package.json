@@ -1,0 +1,6 @@
+{
+  "id": "Umbraco.Dictionary.DeliveryAPI",
+  "name": "Umbraco.Dictionary.DeliveryAPI",
+  "allowPackageTelemetry": true,
+  "extensions": []
+}

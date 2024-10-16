@@ -17,14 +17,14 @@ namespace UmbracoDictionaryDeliveryAPI.Controller;
 [LocalizeFromAcceptLanguageHeader]
 [ValidateStartItem]
 [OutputCache(PolicyName = Constants.DeliveryApi.OutputCache.ContentCachePolicy)]
-public class DictionaryController(IDictionaryItemService dictionaryItemService, IRequestCultureService requestCultureService) : DeliveryApiControllerBase
+public class DictionaryController(ILocalizationService localizationService, IRequestCultureService requestCultureService) : DeliveryApiControllerBase
 {
     [HttpGet]
     [Route("{key}")]
     public async Task<IActionResult> ByKey(string key)
     {
         var culture = requestCultureService.GetRequestedCulture();
-        var dictionary = await dictionaryItemService.GetAsync(key);
+        var dictionary = localizationService.GetDictionaryItemByKey(key);
         if (dictionary == null)
         {
             return NotFound();
@@ -36,12 +36,12 @@ public class DictionaryController(IDictionaryItemService dictionaryItemService, 
     public async Task<IActionResult> GetAll()
     {
         var culture = requestCultureService.GetRequestedCulture();
-        var rootDictionaries = await dictionaryItemService.GetAtRootAsync();
+        var rootDictionaries = localizationService.GetRootDictionaryItems();
         var result = new List<IDictionaryItem>();
         foreach (IDictionaryItem item in rootDictionaries)
         {
             result.Add(item);
-            result.AddRange(await dictionaryItemService.GetDescendantsAsync(item.Key));
+            result.AddRange(localizationService.GetDictionaryItemDescendants(item.Key));
         }
         var response = result
             .Select(x => GetDictionaryItemUrl(x, culture))
@@ -55,13 +55,13 @@ public class DictionaryController(IDictionaryItemService dictionaryItemService, 
     public async Task<IActionResult> GetALLBelowKey(string key)
     {
         var culture = requestCultureService.GetRequestedCulture();
-        var dictionary = await dictionaryItemService.GetAsync(key);
+        var dictionary = localizationService.GetDictionaryItemByKey(key);
         if (dictionary == null)
         {
             return NotFound();
         }
 
-        var result = await dictionaryItemService.GetDescendantsAsync(dictionary.Key);
+        var result = localizationService.GetDictionaryItemDescendants(dictionary.Key);
         var response = result
            .Select(x => GetDictionaryItemUrl(x, culture))
                .ToDictionary();
